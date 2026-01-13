@@ -77,6 +77,12 @@ If you paste a VS Code-rendered Markdown link like `[file.pdf](http://...)` into
 - If `tagpdf` is available, it enables tagging for accessibility (LuaLaTeX required).
 - The font defaults to TeX Gyre Heros/TeX Gyre Cursor if available, otherwise Latin Modern.
 
+## License
+
+This repository is licensed under **Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)**.
+
+See [LICENSE](LICENSE).
+
 ## Contributing
 
 If you want additional templates or fields, open a PR with a short rationale and sample output.
