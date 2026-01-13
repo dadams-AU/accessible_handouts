@@ -82,4 +82,4 @@ See [LICENSE](LICENSE).
 
 ## Contributing
 
-If you want additional templates or fields, open a PR with a short rationale and sample output.
+Contributions are welcome! Please open issues or submit pull requests for improvements or bug fixes.
