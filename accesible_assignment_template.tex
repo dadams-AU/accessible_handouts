@@ -1,0 +1,145 @@
+\DocumentMetadata{
+  pdfstandard=UA-2,
+  pdfversion=2.0,
+  lang=en-US,
+  title={ASSIGNMENT TITLE},
+  author={INSTRUCTOR NAME},
+  subject={COURSE CODE -- COURSE TITLE},
+  keywords={CSUF, Accessible Handout, Course Materials}
+}
+
+\documentclass[12pt]{article}
+
+\usepackage[american]{babel}
+
+% ================================
+% FONT SETTINGS
+% ================================
+\usepackage{fontspec}
+\IfFontExistsTF{TeX Gyre Heros}{
+  \setmainfont{TeX Gyre Heros}
+}{
+  \setmainfont{Latin Modern Sans}
+}
+\IfFontExistsTF{TeX Gyre Cursor}{
+  \setmonofont{TeX Gyre Cursor}
+}{
+  \setmonofont{Latin Modern Mono}
+}
+
+% Page layout and spacing
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{setspace}
+\onehalfspacing
+
+% Lists, tables, graphics
+\usepackage{enumitem}
+\setlist[itemize]{itemsep=0pt, parsep=0pt, topsep=0.25\baselineskip}
+\newlist{flatlist}{itemize}{1}
+\setlist[flatlist]{label={}, leftmargin=0pt, itemsep=0pt, parsep=0pt, topsep=0pt}
+\setlistdepth{3}
+\usepackage{graphicx}
+\usepackage{array, booktabs, longtable}
+\usepackage{caption}
+\usepackage{tabularray}
+\UseTblrLibrary{booktabs}
+
+% Tagging for accessibility
+\IfFileExists{tagpdf-base.sty}{
+  \usepackage{tagpdf}
+  \tagpdfsetup{activate-all=true, interwordspace=true}
+}{
+  \newcommand\tagpdfsetup[1]{}
+}
+
+% Header/footer
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[R]{COURSE CODE -- COURSE TITLE}
+\fancyhead[L]{\textit{ASSIGNMENT TITLE}}
+\fancyfoot[C]{\thepage}
+
+% Links and metadata
+\usepackage{hyperref}
+\usepackage{bookmark}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  citecolor=magenta,
+  urlcolor=blue,
+  unicode=true,
+  pdftitle={ASSIGNMENT TITLE},
+  pdfauthor={INSTRUCTOR NAME},
+  pdfsubject={COURSE CODE -- COURSE TITLE},
+  pdfkeywords={CSUF, Accessible Handout, Course Materials},
+  pdfborderstyle={/S/U/W 1}
+}
+\urlstyle{same}
+
+% Bibliography (optional)
+\usepackage[round]{natbib}
+
+% Pandoc compatibility
+\providecommand{\tightlist}{}
+
+% Document title block
+\title{ASSIGNMENT TITLE\\\large COURSE CODE -- COURSE TITLE}
+\author{INSTRUCTOR NAME}
+\date{TERM AND YEAR}
+
+\begin{document}
+\maketitle
+
+% ========== OPTIONAL: LOGO ==========
+% \begin{center}
+% \includegraphics[width=2.25in, alt={Cal State Fullerton wordmark}]{csuf_logo.png}
+% \end{center}
+
+\section*{Purpose}
+Briefly explain what students will learn or practice.
+
+\section*{Overview}
+Summarize the assignment and how it fits the course.
+
+\section*{Learning Objectives}
+\begin{itemize}
+\item Objective 1.
+\item Objective 2.
+\item Objective 3.
+\end{itemize}
+
+\section*{Requirements}
+\begin{itemize}
+\item Requirement 1.
+\item Requirement 2.
+\item Requirement 3.
+\end{itemize}
+
+\section*{Deliverables}
+\begin{itemize}
+\item Deliverable 1 (format, length, file type).
+\item Deliverable 2.
+\end{itemize}
+
+\section*{Timeline}
+\begin{itemize}
+\item \textbf{Due date:} DAY, DATE, TIME.
+\item \textbf{Milestones:} List any checkpoints.
+\end{itemize}
+
+\section*{Evaluation Criteria}
+\begin{itemize}
+\item Criterion 1 (weight or points).
+\item Criterion 2 (weight or points).
+\item Criterion 3 (weight or points).
+\end{itemize}
+
+\section*{Submission Instructions}
+Where and how to submit (Canvas link, file name, etc.).
+
+\section*{Accessibility and Support}
+Invite students to contact you for accommodations and list support resources.
+
+\end{document}
