@@ -65,9 +65,6 @@ mutool show accesible_assignment_template.pdf 83
 
 If `verapdf` reports non-compliance, treat it as the source of truth and fix the template/content until it passes.
 
-### Terminal gotcha (zsh)
-
-If you paste a VS Code-rendered Markdown link like `[file.pdf](http://...)` into `zsh`, it will error (`unknown file attribute`). Always use the plain filename/path, e.g. `pdfinfo -meta accesible_assignment_template.pdf`.
 
 ## Notes
 
