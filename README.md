@@ -1,15 +1,20 @@
 # Accessible Handouts (LaTeX Template)
 
-This repo contains a single LaTeX template for creating accessible course handouts and assignments with PDF/UA metadata.
+This repo contains templates for creating accessible course handouts and assignments with PDF/UA metadata. There is a raw LaTeX template and a Pandoc template that wraps the same accessibility settings.
 
 ## Files
 
-- `accesible_assignment_template.tex`: Main template. Edit the placeholders (title, instructor, course, term, sections) and compile.
+- `accessible_assignment_template.tex`: Raw LaTeX template. Edit the placeholders (title, instructor, course, term, sections) and compile.
+- `accessible-handout.latex`: Pandoc template. Write your content in Markdown and compile to an accessible PDF via Pandoc + LuaLaTeX.
 
 ## Requirements
 
-- **LuaLaTeX** (required for the accessibility features in this template).
-- Standard LaTeX packages used in the template (e.g., `tagpdf`, `hyperref`, `geometry`).
+- **LuaLaTeX** (required for the accessibility features in both templates).
+- Standard LaTeX packages used in the templates (e.g., `tagpdf`, `hyperref`, `geometry`, `tabularray`, `fontspec`).
+
+### For the Pandoc template
+
+- **Pandoc** (any recent version)
 
 ### Optional but recommended (verification)
 
@@ -20,16 +25,59 @@ This repo contains a single LaTeX template for creating accessible course handou
 
 ## Quick start
 
-1. Copy or rename `accesible_assignment_template.tex`.
+### Raw LaTeX template
+
+1. Copy or rename `accessible_assignment_template.tex`.
 2. Replace placeholder values (e.g., `ASSIGNMENT TITLE`, `INSTRUCTOR NAME`, `COURSE CODE -- COURSE TITLE`).
 3. Uncomment the logo block if you want to include an image.
 4. Compile with LuaLaTeX.
 
-Example (LuaLaTeX):
+```sh
+lualatex accessible_assignment_template.tex
+```
+
+### Pandoc template
+
+1. Write your handout content in a Markdown file with a YAML front matter block:
+
+```markdown
+---
+title: "Assignment 1"
+author: "Instructor Name"
+date: "Spring 2026"
+course-code: "EDUC 101"
+course-title: "Introduction to Education"
+lang: en-US
+---
+
+## Instructions
+
+Your content here...
+```
+
+1. Compile with Pandoc using LuaLaTeX and the template:
 
 ```sh
-lualatex accesible_assignment_template.tex
+pandoc handout.md \
+  --template=accessible-handout.latex \
+  --pdf-engine=lualatex \
+  -o handout.pdf
 ```
+
+#### Supported front matter variables
+
+| Variable | Description |
+| --- | --- |
+| `title` | Document title (also sets `pdftitle`) |
+| `author` | Author name(s) — accepts a list |
+| `date` | Date string shown in the title block |
+| `course-code` | Course code (e.g., `EDUC 101`) |
+| `course-title` | Course title appended to the code |
+| `lang` | BCP 47 language tag (default: `en-US`) |
+| `logo` | Path to a logo image file |
+| `logo-alt` | Alt text for the logo (default: `Institution logo`) |
+| `keywords` | List of PDF keywords |
+| `bibliography` | BibTeX file(s) for `natbib` references |
 
 ## Accessibility verification (recommended)
 
