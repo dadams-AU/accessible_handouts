@@ -83,7 +83,9 @@ pandoc handout.md \
 
 This template is designed to generate a **tagged PDF** with **PDF/UA-2**-oriented metadata. The most reliable way to verify is to run a PDF/UA validator on the generated PDF.
 
-### Arch Linux install commands
+### Install verification tools
+
+#### Arch Linux
 
 ```sh
 sudo pacman -S --needed qpdf poppler mupdf-tools
@@ -95,6 +97,37 @@ For `verapdf`, use your AUR helper (e.g., `yay` or `paru`) or install the offici
 # example if you use yay
 yay -S --needed verapdf
 ```
+
+#### macOS (Homebrew)
+
+```sh
+brew install qpdf poppler mupdf-tools
+```
+
+`verapdf` is not in Homebrew. Download the installer from <https://verapdf.org/software/>:
+
+```sh
+# after downloading the installer zip
+unzip verapdf-greenfield-*-installer.zip
+cd verapdf-greenfield-*/
+./verapdf-install
+```
+
+#### Windows
+
+Install [TeX Live](https://tug.org/texlive/) (includes LuaLaTeX) or [MiKTeX](https://miktex.org/).
+
+For verification tools, the easiest option is [Chocolatey](https://chocolatey.org/):
+
+```powershell
+choco install qpdf mupdf
+```
+
+`poppler` Windows binaries are available from <https://github.com/oschwartz10612/poppler-windows/releases> -- add the `bin` folder to your `PATH`.
+
+Download the `verapdf` Windows installer from <https://verapdf.org/software/>.
+
+> **Note:** On Windows, use `lualatex` from a TeX Live or MiKTeX command prompt. All `pandoc` commands work the same across platforms.
 
 ### Run checks
 
