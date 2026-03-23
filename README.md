@@ -73,7 +73,8 @@ pandoc handout.md \
 | `date` | Date string shown in the title block |
 | `course-code` | Course code (e.g., `EDUC 101`) |
 | `course-title` | Course title appended to the code |
-| `lang` | BCP 47 language tag (default: `en-US`) |
+| `lang` | BCP 47 language tag (default: `en-US`) — used for PDF metadata |
+| `babel-lang` | Babel language name (default: `american`) — e.g., `french`, `british`, `ngerman` |
 | `logo` | Path to a logo image file |
 | `logo-alt` | Alt text for the logo (default: `Institution logo`) |
 | `keywords` | List of PDF keywords |
