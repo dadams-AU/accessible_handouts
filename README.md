@@ -85,6 +85,16 @@ pandoc handout.md \
 
 This template is designed to generate a **tagged PDF** with **PDF/UA-2**-oriented metadata. The most reliable way to verify is to run a PDF/UA validator on the generated PDF.
 
+> ### ⚠️ Tagging fails silently — always verify
+>
+> A document can compile with **zero errors**, declare PDF/UA conformance in its metadata, and still produce an **untagged** PDF. Nothing in the LaTeX log warns you. Check every file before you distribute it:
+>
+> ```sh
+> pdfinfo yourfile.pdf | grep Tagged     # want: Tagged: yes
+> ```
+>
+> See [How tagging is activated](#how-tagging-is-activated) below for the cause and the fix.
+
 ### Install verification tools
 
 #### Arch Linux
@@ -148,13 +158,64 @@ mutool show accesible_assignment_template.pdf 83
 
 If `verapdf` reports non-compliance, treat it as the source of truth and fix the template/content until it passes.
 
+### Quick structural check without verapdf
+
+`pdfinfo` is enough for a yes/no answer:
+
+```sh
+pdfinfo accessible_assignment_template.pdf | grep Tagged
+```
+
+For detail, inspect the PDF catalog:
+
+```sh
+root=$(qpdf --show-object=trailer accessible_assignment_template.pdf \
+       | grep -oE "/Root [0-9]+" | awk '{print $2}')
+qpdf --show-object=$root accessible_assignment_template.pdf
+```
+
+A properly tagged file lists `/StructTreeRoot`, `/MarkInfo`, and `/Lang`:
+
+```
+<< /AF ... /Lang (en-US) /MarkInfo 29 0 R /StructTreeRoot 5 0 R /Type /Catalog ... >>
+```
+
+If `/StructTreeRoot` is absent, the file is not tagged. Do **not** try to `grep` the PDF itself for that string — it lives inside compressed object streams, and `grep` reports nothing useful on binary input.
+
+## How tagging is activated
+
+Both templates activate tagging explicitly in `\DocumentMetadata`:
+
+```latex
+\DocumentMetadata{
+  pdfstandard=UA-2,
+  pdfversion=2.0,
+  lang=en-US,
+  tagging=on   % <- this is what actually turns tagging on
+}
+```
+
+This line is load-bearing. Two things that do **not** activate tagging on their own:
+
+- `pdfstandard=UA-1` / `UA-2`. This only *declares* conformance. Older LaTeX kernels inferred tagging from it; **current kernels do not.**
+- `\usepackage{tagpdf}` plus `\tagpdfsetup{activate-all=true}`.
+
+Because of that kernel change, a `.tex` file that produced a tagged PDF a year ago can produce an **untagged** PDF today with no source edits and no error message. That is exactly how it was caught here: rebuilding `accessible_assignment_template.tex` unchanged produced an untagged PDF while the previously committed PDF was tagged.
+
+**Older TeX Live:** `tagging=on` requires LaTeX **2025-06-01 or newer**. On older distributions substitute:
+
+```latex
+testphase={phase-III, math, table, firstaid, sec, title}
+```
+
+Both mechanisms work on current kernels; `testphase` has the wider compatibility range, `tagging=on` is the current documented interface.
 
 ## Notes
 
 - The template sets PDF/UA settings and language in `\DocumentMetadata`.
 - Descriptive metadata (title/author/subject/keywords) is set via `\hypersetup`.
 - `pdfdisplaydoctitle=true` is enabled so the PDF catalog includes `ViewerPreferences/DisplayDocTitle=true` (required by common PDF/UA validation profiles).
-- If `tagpdf` is available, it enables tagging for accessibility (LuaLaTeX required).
+- Tagging is activated by `tagging=on` in `\DocumentMetadata` (LuaLaTeX required). `tagpdf` supplies supporting commands but does not activate tagging by itself — see [How tagging is activated](#how-tagging-is-activated).
 - The font defaults to TeX Gyre Heros/TeX Gyre Cursor if available, otherwise Latin Modern.
 
 ## License
