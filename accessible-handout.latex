@@ -1,7 +1,8 @@
 \DocumentMetadata{
   pdfstandard=UA-1,
   pdfversion=1.7,
-  lang=$if(lang)$$lang$$else$en-US$endif$
+  lang=$if(lang)$$lang$$else$en-US$endif$,
+  tagging=on
 }
 
 \documentclass[12pt]{article}
@@ -46,9 +47,21 @@
 \setlistdepth{3}
 \usepackage{graphicx}
 \usepackage{array, longtable}
-\usepackage{caption}
+\usepackage{calc}
 \usepackage{tabularray}
 \UseTblrLibrary{booktabs}
+\makeatletter
+\ExplSyntaxOn
+\cs_new_eq:NN \accessiblehandout_orig_LT_array \LT@array
+\cs_gset_protected:Npn \LT@array [#1] #2
+  {
+    % Pandoc emits \LTcaptype{none} for captionless longtables, but
+    % current longtable expects an empty value to suppress counters.
+    \str_if_eq:eeT { \LTcaptype } { none } { \tl_gset:Nn \LTcaptype {} }
+    \accessiblehandout_orig_LT_array[#1]{#2}
+  }
+\ExplSyntaxOff
+\makeatother
 
 % Tagging for accessibility
 \IfFileExists{tagpdf-base.sty}{

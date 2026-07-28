@@ -10,6 +10,7 @@ This repo contains templates for creating accessible course handouts and assignm
 ## Requirements
 
 - **LuaLaTeX** (required for the accessibility features in both templates).
+- **LaTeX kernel 2025-06-01 or newer.** Both templates now activate tagging explicitly with `tagging=on` inside `\DocumentMetadata`. Older kernels inferred tagging from `pdfstandard=UA-*`; current ones do not. Without `tagging=on`, these templates still compile cleanly but silently produce an **untagged** PDF. If you are stuck on an older TeX Live, substitute `testphase={phase-III, math, table, firstaid, sec, title}` for `tagging=on`.
 - Standard LaTeX packages used in the templates (e.g., `tagpdf`, `hyperref`, `geometry`, `tabularray`, `fontspec`).
 
 ### For the Pandoc template
